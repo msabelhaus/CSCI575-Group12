@@ -7,7 +7,7 @@ Final project for CSCI 575: Advanced Machine Learning.
 
 This involves roughly three steps: (1) getting a subsetted list of images to download, (2) running a python script to download them, and (3) correcting the list of subsetted images to remove images with broken urls.
 
-I include all steps in the readme in case we need to recreate said subsetted list of images, but note that <u>ONLY</u> need to perform step (2) if  `/data/google-data/train_subset.csv` and `/data/google-data/df_final.csv` exist on your device.
+I include all steps in the readme in case we need to recreate said subsetted list of images, but note that if  `/data/google-data/train_subset.csv` and `/data/google-data/df_final.csv` exist on your device already, you <u>ONLY</u> need to perform step (2). These files should be in the Git repo.
 
 
 
