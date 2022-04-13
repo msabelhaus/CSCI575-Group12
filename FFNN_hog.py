@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 # from PIL import Image
 import cv2
+import pickle
 
 IMSIZE = [64, 128]
 #Read from CSV to get keys for images
@@ -135,34 +136,38 @@ test_data = test_data.astype('float32')
 train_labels_one_hot = to_categorical(train_labels, num_classes= classes_num_train)
 test_labels_one_hot = to_categorical(test_labels, num_classes = classes_num_train)
 
-num_nodes_list = [1300,1500,1800,2000]
-batches_sz_list = [100, 200, 400]
-epochs_list = [20, 40]
-dropout_list = [0.1, 0.2, 0.3]
+# num_nodes_list = [1300,1500,1800,2000]
+# batches_sz_list = [50, 100, 200]
+# epochs_list = [40,80,100]
+# dropout_list = [0.1, 0.2, 0.3, 0.4]
 
-tunings = []
-for epochs in epochs_list:
-    for batch_sz in batches_sz_list:
-        for num_nodes in num_nodes_list:
-            for dropout in dropout_list:
-                [test_acc, hist] = testTunings(num_nodes, [],batch_sz, epochs, dropout)
-                tuning = {'acc':test_acc, 'nodes': num_nodes, 'batches': batch_sz, 'epochs':epochs, 'dropout':dropout, 'hist':hist}
-                tunings.append(tuning)
+#Best Tuning is 1800, 100, 40, 0.2 with 70% val acc
+# tunings = []
+# for epochs in epochs_list:
+#     for batch_sz in batches_sz_list:
+#         for num_nodes in num_nodes_list:
+#             for dropout in dropout_list:
+#                 [test_acc, hist] = testTunings(num_nodes, [],batch_sz, epochs, dropout)
+#                 tuning = {'acc':test_acc, 'nodes': num_nodes, 'batches': batch_sz, 'epochs':epochs, 'dropout':dropout, 'hist':hist}
+#                 tunings.append(tuning)
 
-# model = Sequential()
-# model.add(Dense(1800, activation='relu', input_shape=(dim_data,)))
-# # model.add(Dropout(0.3))
+# with open('tunings.pickle', 'wb') as f:
+#     pickle.dump(tunings, f)
 
-# model.add(Dense(1800, activation='relu'))
-# # model.add(Dropout(0.3))
+model = Sequential()
+model.add(Dense(1800, activation='relu', input_shape=(dim_data,)))
+model.add(Dropout(0.2))
 
-# model.add(Dense(classes_num_train, activation='softmax'))
-# model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+model.add(Dense(1800, activation='relu'))
+model.add(Dropout(0.2))
 
-# history = model.fit(train_data, train_labels_one_hot, batch_size=100, epochs=30, verbose=1, \
-#                    validation_data=(test_data, test_labels_one_hot))
+model.add(Dense(classes_num_train, activation='softmax'))
+model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
 
-# [test_loss, test_acc] = model.evaluate(test_data, test_labels_one_hot)
+history = model.fit(train_data, train_labels_one_hot, batch_size=100, epochs=40, verbose=1, \
+                   validation_data=(test_data, test_labels_one_hot))
+
+[test_loss, test_acc] = model.evaluate(test_data, test_labels_one_hot)
 print("Evaluation result on Test Data : Loss = {}, accuracy = {}".format(test_loss, test_acc))
 
 #Plot the Loss Curves
