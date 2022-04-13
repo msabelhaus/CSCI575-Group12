@@ -3,7 +3,6 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Dropout
-
 import matplotlib.pyplot as plt
 import numpy as np
 # from PIL import Image
@@ -106,15 +105,15 @@ test_labels_one_hot = to_categorical(test_labels, num_classes = classes_num_trai
 
 model = Sequential()
 model.add(Dense(512, activation='relu', input_shape=(dim_data,)))
-model.add(Dropout(0.35))
+model.add(Dropout(0.3))
 
 model.add(Dense(512, activation='relu'))
-model.add(Dropout(0.35))
+model.add(Dropout(0.3))
 
 model.add(Dense(classes_num_train, activation='softmax'))
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
 
-history = model.fit(train_data, train_labels_one_hot, batch_size=200, epochs=500, verbose=1, \
+history = model.fit(train_data, train_labels_one_hot, batch_size=400, epochs=300, verbose=1, \
                    validation_data=(test_data, test_labels_one_hot))
 
 [test_loss, test_acc] = model.evaluate(test_data, test_labels_one_hot)
