@@ -1,5 +1,7 @@
 # CSCI575-Group12
-Final project for CSCI 575: Advanced Machine Learning.
+Final project for CSCI 575: Advanced Machine Learning. 
+
+Contributors: Paul Carau, Mark Higger, Elissa Himes, Margaret Sabelhaus
 
 
 
@@ -47,18 +49,15 @@ Step 3: Create `/data/google-data/df_final.csv` (the corrected subsetted list of
 
 ### Data Exploration
 
-When it comes time to make any charts/figures/etc. for the final report, use `dataExploration.csv` in the main repository.
+Data exploration led to the creation of two significant scripts:
+
+1. `/data/createDataSubsetCsv.ipynb` is used to take a subset of landmarks to use in the project due to computational restrictions.
+2. `/data/fixDataSubsetCsv.ipynb` is used to correct the CSV of downloaded images to include only those without broken links.
 
 
 
 ### Data Modeling
 
-I have created two notebooks to use for creating our baseline and main model: 
-
-- `modelingFFNN.ipynb` for the baseline model
-- `modelingCNN.ipynb` for the CNN
-
-Both read in `/data/google-data/df_final.csv`. 
-
-Feel free to use a python script if you prefer. I just created these notebooks as a starting point. 
-
+- `FNN_basic.py` is used to generate our baseline Feedforward Neural Network model.
+- `FNN_hog.py` is used to incorporate the HOG feature extraction method.
+- All scripts found in the `CNN` folder were used to create our Convolutional Neural Network.
